@@ -1,10 +1,300 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HeroBits</title>
+    <style>
+        body {
+            font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
+            background: #fff;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        header {
+            background: #333;
+            color: #fff;
+            padding: 10px;
+            font-size: 20px;
+        }
+
+        .pantalla {
+            display: none;
+            padding: 20px;
+        }
+
+        .visible {
+            display: block;
+        }
+
+        .titulo {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .personaje-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .personaje-img {
+            width: 250px;
+            height: 200px;
+            border: 2px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f4f4f4;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-top: 15px;
+            border: 2px solid #000;
+            background: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Receta */
+        .receta-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .foto-comida {
+            width: 250px;
+            height: 200px;
+            border: 2px solid #000;
+            margin-bottom: 10px;
+            background: #f4f4f4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .foto-comida img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+
+        .ingredientes, .procedimiento {
+            width: 40%;
+            text-align: left;
+        }
+
+        .ingredientes ul {
+            list-style: circle;
+            padding-left: 20px;
+        }
+
+        .datos-receta {
+            border: 2px solid #000;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+
+        nav {
+            margin-bottom: 15px;
+        }
+
+        nav button {
+            margin: 5px;
+        }
+
+        /* --- Simulación de reproductor Spotify --- */
+        .spotify-player {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 250px;
+            height: 80px;
+            background: #181818;
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.4);
+            font-size: 14px;
+            z-index: 1000;
+        }
+
+        .spotify-cover {
+            width: 60px;
+            height: 60px;
+            background: gray;
+            border-radius: 8px;
+            margin-right: 10px;
+        }
+
+        .spotify-info {
+            flex: 1;
+            text-align: left;
+        }
+
+        .spotify-title {
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .spotify-artist {
+            font-size: 12px;
+            color: #bbb;
+        }
+
+        .spotify-controls {
+            margin-left: 10px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
+
+<header>H E R O B I T S</header>
+
+<!-- Pantalla 1: Selección de personaje -->
+<div id="pantalla1" class="pantalla visible">
+    <div class="titulo">¿CÓMO QUIERES COMER HOY?</div>
+    <div class="personaje-container">
+        <button onclick="cambiarPersonaje(-1)">⬅</button>
+        <div class="personaje-img" id="fotoPersonaje"></div>
+        <button onclick="cambiarPersonaje(1)">➡</button>
+    </div>
+    <button id="nombrePersonaje" onclick="mostrarPantalla('pantalla2')">Nombre superhéroe</button>
+</div>
+
+<!-- Pantalla 2: Receta -->
+<div id="pantalla2" class="pantalla">
+    <nav>
+        <button onclick="mostrarPantalla('pantalla1')">Volver al selector</button>
+    </nav>
+    <div class="receta-container" id="recetaContenido">
+        <!-- Aquí se cargará la receta según el personaje -->
+    </div>
+</div>
+
+<!-- Reproductor Spotify simulado -->
+<div class="spotify-player">
+    <div class="spotify-cover"></div>
+    <div class="spotify-info">
+        <div class="spotify-title">Canción Ejemplo</div>
+        <div class="spotify-artist">Artista</div>
+    </div>
+    <div class="spotify-controls">▶️</div>
+</div>
+
+<script>
+    // Navegación de pantallas
+    function mostrarPantalla(id) {
+        document.querySelectorAll('.pantalla').forEach(p => p.classList.remove('visible'));
+        document.getElementById(id).classList.add('visible');
+
+        if (id === "pantalla2") {
+            cargarReceta();
+        }
+    }
+
+    // Personajes de ejemplo con receta
+    const personajes = [
+        {
+            nombre: "Spider Man - Chef",
+            foto: "img/spiderman.jpg",
+            receta: {
+                platillo: "Pizza de Queso",
+                raciones: 2,
+                temperatura: "220°C",
+                prep: "15 min",
+                coccion: "20 min",
+                imagen: "img/pizza.jpg",
+                ingredientes: ["Masa de pizza", "Queso mozzarella", "Salsa de tomate"],
+                pasos: ["Extender la masa", "Agregar la salsa y queso", "Hornear 20 min"]
+            }
+        },
+        {
+            nombre: "Thor - Chef",
+            foto: "img/thor.jpg",
+            receta: {
+                platillo: "Ensalada Asgardiana",
+                raciones: 4,
+                temperatura: "Fría",
+                prep: "10 min",
+                coccion: "0 min",
+                imagen: "img/ensalada.jpg",
+                ingredientes: ["Lechuga", "Tomates", "Aceitunas", "Queso feta"],
+                pasos: ["Lavar verduras", "Trocear ingredientes", "Mezclar y servir"]
+            }
+        },
+        {
+            nombre: "Black Panther - Chef",
+            foto: "img/blackpanther.jpg",
+            receta: {
+                platillo: "Pollo Wakandiano",
+                raciones: 3,
+                temperatura: "180°C",
+                prep: "20 min",
+                coccion: "40 min",
+                imagen: "img/pollo.jpg",
+                ingredientes: ["Pollo", "Especias africanas", "Aceite de oliva"],
+                pasos: ["Marinar pollo con especias", "Hornear 40 min", "Servir con arroz"]
+            }
+        }
+    ];
+
+    let indice = 0;
+
+    function cambiarPersonaje(direccion) {
+        indice = (indice + direccion + personajes.length) % personajes.length;
+        
+        document.getElementById("fotoPersonaje").innerHTML = 
+            `<img src="${personajes[indice].foto}" 
+                  alt="${personajes[indice].nombre}" 
+                  style="max-width:200px; height:auto; border-radius:10px;">`;
+                  
+        document.getElementById("nombrePersonaje").innerText = personajes[indice].nombre;
+    }
+
+    function cargarReceta() {
+        const receta = personajes[indice].receta;
+        document.getElementById("recetaContenido").innerHTML = `
+            <div>
+                <div class="foto-comida"><img src="${receta.imagen}" alt="${receta.platillo}"></div>
+                <h3>INGREDIENTES</h3>
+                <div class="ingredientes">
+                    <ul>
+                        ${receta.ingredientes.map(i => `<li>${i}</li>`).join("")}
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <div class="datos-receta">
+                    <p><b>Platillo:</b> ${receta.platillo}</p>
+                    <p><b>Raciones para:</b> ${receta.raciones}</p>
+                    <p><b>Temperatura:</b> ${receta.temperatura}</p>
+                    <p><b>Tiempo de preparación:</b> ${receta.prep}</p>
+                    <p><b>Tiempo de cocción:</b> ${receta.coccion}</p>
+                </div>
+                <h3>PROCEDIMIENTO</h3>
+                <div class="procedimiento">
+                    <ol>
+                        ${receta.pasos.map(p => `<li>${p}</li>`).join("")}
+                    </ol>
+                </div>
+            </div>
+        `;
+    }
+
+    // Inicializar
+    cambiarPersonaje(0);
+</script>
 
 </body>
 </html>
