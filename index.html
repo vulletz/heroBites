@@ -66,6 +66,7 @@
             display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
+            gap: 20px;
         }
 
         .foto-comida {
@@ -155,6 +156,22 @@
             font-size: 18px;
             cursor: pointer;
         }
+
+        /* Justificación de héroe */
+        .justificacion {
+            border-left: 5px solid #333;
+            background: #fafafa;
+            padding: 15px;
+            margin-top: 15px;
+            font-style: italic;
+            border-radius: 8px;
+            text-align: left;
+        }
+
+        .justificacion strong {
+            display: block;
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 <body>
@@ -209,42 +226,51 @@
             nombre: "Spider Man - Chef",
             foto: "img/spiderman.jpg",
             receta: {
-                platillo: "Pizza de Queso",
+                platillo: "Pizza neoyorquina casera",
+                narrativa: "Peter Parker, siempre con poco tiempo, elige la pizza como símbolo de Nueva York: rápida, económica y llena de sabor.",
+                contexto: "La pizza al estilo neoyorquino es famosa por su base delgada que se puede doblar y comer mientras caminas por la ciudad.",
+                justificacion: "🕷️ Spider-Man dice: 'Entre clases y salvar Nueva York, necesito algo rápido. Nada como una pizza de Queens.'",
                 raciones: 2,
                 temperatura: "220°C",
                 prep: "15 min",
                 coccion: "20 min",
                 imagen: "img/pizza.jpg",
-                ingredientes: ["Masa de pizza", "Queso mozzarella", "Salsa de tomate"],
-                pasos: ["Extender la masa", "Agregar la salsa y queso", "Hornear 20 min"]
+                ingredientes: ["Masa de pizza", "Queso mozzarella", "Salsa de tomate", "Pepperoni"],
+                pasos: ["Extender la masa", "Agregar salsa y queso", "Hornear 20 min"]
             }
         },
         {
             nombre: "Thor - Chef",
             foto: "img/thor.jpg",
             receta: {
-                platillo: "Ensalada Asgardiana",
+                platillo: "Estofado nórdico de cordero",
+                narrativa: "Un platillo robusto, digno de un dios guerrero, que refleja fuerza y resistencia.",
+                contexto: "Tradicional en Escandinavia, los estofados alimentaban a los vikingos durante largos inviernos.",
+                justificacion: "⚡ Thor dice: '¡Un verdadero banquete requiere fuerza y fuego! Este estofado me recuerda Midgard y Asgard.'",
                 raciones: 4,
-                temperatura: "Fría",
-                prep: "10 min",
-                coccion: "0 min",
-                imagen: "img/ensalada.jpg",
-                ingredientes: ["Lechuga", "Tomates", "Aceitunas", "Queso feta"],
-                pasos: ["Lavar verduras", "Trocear ingredientes", "Mezclar y servir"]
+                temperatura: "90°C lento",
+                prep: "20 min",
+                coccion: "2 horas",
+                imagen: "img/estofado.jpg",
+                ingredientes: ["Cordero", "Papas", "Zanahorias", "Cebolla", "Caldo"],
+                pasos: ["Sellar la carne", "Añadir verduras", "Cocinar a fuego lento 2 horas"]
             }
         },
         {
             nombre: "Black Panther - Chef",
             foto: "img/blackpanther.jpg",
             receta: {
-                platillo: "Pollo Wakandiano",
+                platillo: "Jollof rice con pollo",
+                narrativa: "Un plato vibrante que refleja la unión entre tradición africana y modernidad wakandiana.",
+                contexto: "El Jollof rice es un platillo festivo y compartido en África Occidental, símbolo de comunidad.",
+                justificacion: "🐾 Black Panther dice: 'Wakanda honra sus raíces. El Jollof rice alimenta el cuerpo y une corazones.'",
                 raciones: 3,
                 temperatura: "180°C",
-                prep: "20 min",
-                coccion: "40 min",
-                imagen: "img/pollo.jpg",
-                ingredientes: ["Pollo", "Especias africanas", "Aceite de oliva"],
-                pasos: ["Marinar pollo con especias", "Hornear 40 min", "Servir con arroz"]
+                prep: "25 min",
+                coccion: "45 min",
+                imagen: "img/jollof.jpg",
+                ingredientes: ["Arroz", "Tomates", "Cebolla", "Pollo", "Pimientos", "Especias africanas"],
+                pasos: ["Sofreír pollo", "Preparar salsa de tomate", "Cocinar arroz con especias"]
             }
         }
     ];
@@ -267,6 +293,10 @@
         document.getElementById("recetaContenido").innerHTML = `
             <div>
                 <div class="foto-comida"><img src="${receta.imagen}" alt="${receta.platillo}"></div>
+                <h3>${receta.platillo}</h3>
+                <p><b>Narrativa:</b> ${receta.narrativa}</p>
+                <p><b>Contexto cultural:</b> ${receta.contexto}</p>
+                <div class="justificacion"><strong>Justificación:</strong> ${receta.justificacion}</div>
                 <h3>INGREDIENTES</h3>
                 <div class="ingredientes">
                     <ul>
@@ -276,11 +306,10 @@
             </div>
             <div>
                 <div class="datos-receta">
-                    <p><b>Platillo:</b> ${receta.platillo}</p>
-                    <p><b>Raciones para:</b> ${receta.raciones}</p>
+                    <p><b>Raciones:</b> ${receta.raciones}</p>
                     <p><b>Temperatura:</b> ${receta.temperatura}</p>
-                    <p><b>Tiempo de preparación:</b> ${receta.prep}</p>
-                    <p><b>Tiempo de cocción:</b> ${receta.coccion}</p>
+                    <p><b>Preparación:</b> ${receta.prep}</p>
+                    <p><b>Cocción:</b> ${receta.coccion}</p>
                 </div>
                 <h3>PROCEDIMIENTO</h3>
                 <div class="procedimiento">
